@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>What the heck"</h1>
+    <form action="" method="post">
+        <input type="text" value="" name="ques">
+        <input type="submit" value="MIc TEst" >
+    </form>
+    {%if ans %}
+        <p>{{ ans }}</p>
+    {% endif %}
+    <textarea id="convert_text" cols="30" rows="10"></textarea>
+    <button onclick="ach()" id="click_to_convert">abc</button>
+    <button onclick="record()" id="click_to_convert">stop</button>
+    <div class="audio" id="audio">
+    </div>
+    <style type="text/css">
+        .audio{
+            width: 400px;
+            height: 600px;
+            border-radius: 20px;
+            padding: 20px;
+            margin:50px auto;
+            border:2px solid blue;
+        }
+        .audio audio{
+            outline: none;
+        }
+    </style>
+    <script type="text/javascript">
+
+        //click_to_convert.addEventListener('click', function(){
+            var speech = true;
+            SpeechRecognition = window.webkitSpeechRecognition;
+            const recognition =new SpeechRecognition();
+            recognition.interimResults = true;
+
+            recognition.addEventListener('result', e=>{
+                const transcript = Array.from(e.results)
+                .map(result => result[0])
+                .map(result => result.transcript)
+                convert_text.innerHTML = transcript;
+            });
+
+            function ach(){
+                console.log("start");
+                       
+                        if(speech == true){
+                            recognition.start();
+                        }
+
+                        console.log("finish");
+                        consloe(transcript);
+
+        }
+
+        function record(){
+
+            const recognition = new webkitSpeechRecognition();
+
+            // configure setting that continuous results are returned for each recognition
+            recognition.continuous = true;
+
+            // configure setting that interim results should be returned
+            recognition.interimResults = true;
+
+            // event handler when a word or phrase has been positively recognized
+            recognition.onresult = function (event) {
+                 console.log(event.results);
+            };
+            recognition.start();
+        }
+        
+
+                 
+    </script>
+</body>
+</html>
